@@ -4,6 +4,9 @@
 {{> navAcademy}}
 <div class="content mt-5">
     <div class="container">
+
+
+        <!-- Cards Container -->
         <div class="card">
             <div class="card-body">
                 <div class="row mt-4">
@@ -15,6 +18,8 @@
                         </button>
                     </div>
                 </div>
+
+
                 <div class="row mt-5 row row-cols-1 row-cols-sm-2 row-cols-md-2">
                     {{#each horarios}}
                     <div class="col-lg-4" name="Target">
@@ -25,11 +30,16 @@
                                 </div>
                                 <ul class="social-links list-inline">
                                     <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
-                                            class="tooltips" href="/links/UpdateClass/{{clase.id}}" data-original-title="Editar"><i
-                                                class="fa fa-pencil"></i></a></li>
-                                    <li class="list-inline-item"><a title="" data-placement="top" data-toggle="tooltip"
-                                            class="tooltips" href="" data-original-title="Eliminar"><i
-                                                class="fa fa-trash"></i></a></li>
+                                            class="tooltips" href="/links/UpdateClass/{{clase.id}}"
+                                            data-original-title="Editar"><i class="fa fa-pencil"></i></a></li>
+
+                                    <li class="list-inline-item">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="" data-toggle="modal"
+                                            data-target="#exampleModalCenter">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </li>
                                 </ul>
                                 <h6 class="mt-4">Horario de la semana</h6>
                                 <div id='horario' class='contenedor'>
@@ -42,6 +52,28 @@
                             </div>
                         </div>
                     </div>
+                    <!--Alert-->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Alert-->
                     {{else}}
                     <div class="mx-auto text-center">
                         <p>agrega una nueva clase</p>

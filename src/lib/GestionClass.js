@@ -26,32 +26,52 @@ Classes.GetById = async function GetId(Id) {
     return;
 }
 
-Classes.Update = async function(Update) {
+Classes.Update = async function (Clase) {
     const fetch = require("node-fetch")
     const https = require("https");
     const agent = new https.Agent({
         rejectUnauthorized: false
     });
-    console.log(Update);
-    const Newhoarios = Horarios.ToFormat(Update.NewHorarios);
-    const UpdateHorarios = Horarios.ToFormat(Update.UpdateHorarios);
 
-    Update.Clase.Horarios = Newhoarios.concat(UpdateHorarios);
+    const Newhoarios = Horarios.ToFormat(Clase.NewHorarios);
+    const UpdateHorarios = Horarios.ToFormat(Clase.UpdateHorarios);
+    Clase.Horarios = Newhoarios.concat(UpdateHorarios);
 
-    console.log(Update.Clase);
-    await fetch("https://localhost:5001/api/clase/" + Update.Clase.id, {
+    console.log(Clase);
+
+    try {
+        await fetch("https://localhost:5001/api/clase/" + Clase.id, {
             agent,
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(Update.Clase)
+            body: JSON.stringify(Clase)
         })
-        .then(response => response.json())
-        .catch(error => console.log("error", error))
-        .then(json => {
-            console.log(json);
-        });
+            .then(response => response.json())
+            .then(json => {
+                console.log("class", json)
+                if (json.errors) {
+                    const { status, detail } = json.errors[0];
+                    if (status == 400)
+                        throw detail;
+                }
+            });
+        
+        if (Array.isArray(Clase.Delete)) {
+            for (let index = 0; index < Clase.Delete.length; index++) {
+                const id = Clase.Delete[index];
+                Horarios.Delete(id);
+            }
+        }else if(Clase.Delete){
+            Horarios.Delete(Clase.Delete);
+        }
+    } catch (e) {
+        console.log(e);
+        return e;
+    }
+
+    return "";
 }
 
 

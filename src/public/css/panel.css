@@ -150,3 +150,10 @@ body {
     cursor: pointer;
     font-size: 20px;
 }
+
+.alert-delte{
+    position: fixed;
+    margin: 250px;
+    
+    z-index: 10;
+}

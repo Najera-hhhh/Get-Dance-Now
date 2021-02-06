@@ -1,27 +1,68 @@
-document.getElementById("add-horario").addEventListener("click", function() {
+document.getElementById("add-horario").addEventListener("click", function () {
     let rows = (document.getElementsByName("row").length * -1) - 1;
     let rowid = "row-" + rows;
 
-    document.getElementById("class").innerHTML +=
-        "<tr id =" + rowid + " name='row'>\
-        <th scope='row'>\
-        <button type='button' onclick=RemoveClass('" + rowid + "')  name='rmv-class' class='btn btn-success btn-sm'> \
-            <span class='glyphicon glyphicon-erase'></span> \
-            </button> \
-        </th> \
-        <td><select name='days' id='day'>\
-            <option>Lunes</option>\
-            <option>Martes</option>\
-            <option>Miercoles</option>\
-            <option>Jueves</option>\
-            <option>Viernes</option>\
-            <option>Sabado</option>\
-            <option>Domingo</option>\
-        </select></td>\
-        <td><input name='Inicio' type='time' value='22:53'></td>\
-        <td><input name='Cierre' type='time' value='22:53'></td>\
-    </tr>\
-    ";
+    //table structure
+    let table = document.getElementById("class");
+    let column = document.createElement("tr")
+    column.id=  rowid;
+    column.setAttribute("name","row");
+    column.id = rowid;
+
+    //button first field
+    let th = document.createElement("th");
+    let btnRemove = document.createElement("button");
+    let iconButton = document.createElement("i");
+    iconButton.className = "fa fa-close";
+
+    //selection and input 
+    let td = document.createElement("td");
+    let fieldSelection = document.createElement("select");
+    let fieldInput = document.createElement("input");
+
+    //create button
+    btnRemove.type = 'button';
+    btnRemove.setAttribute("onclick","RemoveClass('" + rowid + "')");
+    btnRemove.className = "btn btn-success btn-sm";
+    btnRemove.name = 'rmv-class'
+    btnRemove.appendChild(iconButton);
+    th.appendChild(btnRemove);
+    column.appendChild(th);
+
+    //create selection
+    td = document.createElement("td");
+    fieldSelection.setAttribute("name","days");
+    fieldSelection.id = 'day';
+    Options = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
+
+    Options.forEach(x => {
+        Option = document.createElement("option")
+        Option.text = x;
+        fieldSelection.appendChild(Option);
+    })
+
+    td.appendChild(fieldSelection);
+    column.appendChild(td)
+
+    //create inputs
+    td = document.createElement("td");
+    fieldInput.type = "time";
+    fieldInput.value = '12:00';
+    fieldInput.name = "Inicio"
+
+    td.appendChild(fieldInput);
+    column.appendChild(td)
+
+    fieldInput = document.createElement("input");
+    fieldInput.type = "time";
+    fieldInput.value = '12:00';
+    fieldInput.name = "Cierre";
+    td = document.createElement("td");
+    td.appendChild(fieldInput);
+    column.appendChild(td)
+
+    //add field complete to table
+    table.appendChild(column);
 })
 
 
@@ -39,6 +80,7 @@ function Restaurar(del) {
     var copy = row.cloneNode(true);
     padre.removeChild(row);
     copy.getElementsByTagName("button")[0].setAttribute("onclick", "RemoveClass('" + del + "')");
+    copy.getElementsByTagName("i")[0].className = "fa fa-ban";
     destination.appendChild(copy);
 }
 
@@ -59,7 +101,7 @@ function RemoveClass(del) {
         let copy = row.cloneNode(true);
         let destination = document.getElementById('trash');
         let button = copy.getElementsByTagName("button")[0];
-
+        copy.getElementsByTagName("i")[0].className = "fa fa-reply";
 
         destination.appendChild(copy)
         button.setAttribute("onclick", "Restaurar('" + del + "')")

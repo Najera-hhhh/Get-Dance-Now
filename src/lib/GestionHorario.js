@@ -1,10 +1,16 @@
 const Horario = {};
+const fetch = require("node-fetch")
+const https = require("https");
+const agent = new https.Agent({
+    rejectUnauthorized: false
+});
 
+//TODO: Parchar para que siempre clase solo contenga arrays
+Horario.ToFormat = function (clase) {
+    
 
-//TODO: eliminar e implementar de l clase horarios
-Horario.ToFormat = function(clase) {
     let newshorarios = new Array();
-
+    if (clase.Inicio == undefined) return [];
 
     if (Array.isArray(clase.Inicio)) {
         let horariosInicio = clase.Inicio;
@@ -32,9 +38,8 @@ Horario.ToFormat = function(clase) {
 
 
 
-Horario.Update = async function(Horario) {
-    const fetch = require("node-fetch")
-    const https = require("https");
+Horario.Update = async function (Horario) {
+    
     const agent = new https.Agent({
         rejectUnauthorized: false
     });
@@ -65,7 +70,7 @@ Horario.Update = async function(Horario) {
     }
 }
 
-Horario.GetById = async function(id) {
+Horario.GetById = async function (id) {
     const fetch = require("node-fetch")
     const https = require("https");
     const agent = new https.Agent({
@@ -84,6 +89,25 @@ Horario.GetById = async function(id) {
     let item = await response.json();
 
     return item.data;
+}
+
+Horario.Delete = async function (id) {
+
+    const agent = new https.Agent({
+        rejectUnauthorized: false
+    });
+    
+    try{
+        let deleteUrl = "https://localhost:5001/api/horario/" + id;
+        await fetch(deleteUrl,{
+            agent,
+            method: "DELETE"
+        })
+    }
+    catch(e){
+        console.log(e);
+    }
+    return true;
 }
 
 module.exports = Horario;

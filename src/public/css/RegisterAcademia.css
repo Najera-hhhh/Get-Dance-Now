@@ -1,3 +1,7 @@
+*{
+    padding: 0;
+    margin: 0;
+}
 .bodyClass{
     background-color: #f08621;
 }
@@ -39,4 +43,22 @@
 
 .card:hover {
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.map{
+    margin-top: -100px;
+    position: fixed;
+    display: none;
+    z-index: 15000;
+}
+
+.map-nav{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    height: 30px;
+    text-align: right;
+    font-size: 23px;
+    padding-right: 20px;
+    background: white;
 }

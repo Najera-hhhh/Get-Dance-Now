@@ -37,7 +37,7 @@ function GenerateHorario(clase) {
 
 
 
-    newshorarios.forEach(x => console.log(x));
+    //newshorarios.forEach(x => console.log(x));
     return newshorarios;
 }
 
@@ -51,15 +51,15 @@ async function RegisterClass(clase) {
 
     clase.horarios = GenerateHorario(clase.horarios);
 
-    console.log(clase)
+    //console.log(clase)
     await fetch("https://localhost:5001/api/clase", {
-            agent,
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(clase)
-        })
+        agent,
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(clase)
+    })
         .then(response => response.json())
         .catch(error => console.log("error", error))
         .then(json => {
@@ -72,7 +72,7 @@ router.get('/add', (req, res) => {
 })
 
 
-router.post('/add', async(req, res) => {
+router.post('/add', async (req, res) => {
 
     //TODO:agregar un destructuring 
     let obj = {
@@ -89,11 +89,11 @@ router.post('/add', async(req, res) => {
 })
 
 
-router.get('/PanelAcademia', async(req, res) => {
+router.get('/PanelAcademia', async (req, res) => {
 
     const panel = await PanelAcademi.GetClass(req.session.AcademyId); //
     const horarios = await PanelAcademi.GetHorario(panel);
-    //console.log(horarios)
+    console.log(horarios)
     res.render('links/AcademiaPanel', { horarios: horarios });
 })
 
@@ -105,7 +105,7 @@ router.get('/AcademySignup', (req, res) => {
 })
 
 
-router.post('/AcademySignup', async(req, res) => {
+router.post('/AcademySignup', async (req, res) => {
     let academy = await Academy.Add(req.body);
     req.session.AcademyId = academy.id;
 
@@ -118,12 +118,12 @@ router.get('/type', (req, res) => {
 })
 
 
-router.get('/DeleteAcademy', async(req, res) => {
+router.get('/DeleteAcademy', async (req, res) => {
     let academy = await Academy.GetById(req.session.AcademyId);
     res.render('links/DeleteAcademy', { academy: academy });
 })
 
-router.post('/DeleteAcademy', async(req, res) => {
+router.post('/DeleteAcademy', async (req, res) => {
     if (await Academy.Delete(req.session.AcademyId)) {
         req.session.academiaId = 0;
         res.redirect("/signin");
@@ -134,13 +134,13 @@ router.post('/DeleteAcademy', async(req, res) => {
 
 
 
-router.get('/UpdateAcademy', async(req, res) => {
+router.get('/UpdateAcademy', async (req, res) => {
     let academy = await Academy.GetById(req.session.AcademyId);
-    console.log(academy);
+    //console.log(academy);
     res.render('links/UpdateAcademy', { academy: academy });
 })
 
-router.post('/UpdateAcademy', async(req, res) => {
+router.post('/UpdateAcademy', async (req, res) => {
     if (await Academy.Update(req.session.AcademyId, req.body))
         res.redirect("/links/UpdateAcademy");
     else
@@ -148,11 +148,11 @@ router.post('/UpdateAcademy', async(req, res) => {
 })
 
 
-router.get('/UpdateClass/:id', async(req, res) => {
+router.get('/UpdateClass/:id', async (req, res) => {
     let Class = new Array();
     Class.push(await Classes.GetById(req.params.id)); //
-    const Class_Horarios = await PanelAcademi.GetHorario(Class);
-    console.log(Class_Horarios[0]);
+    const Class_Horarios = await PanelAcademi.GetHorario(Class, false);
+    //console.log(Class_Horarios[0]);
     res.render('links/UpdateClass', { class: Class_Horarios[0], id: req.params.id });
 })
 
@@ -160,17 +160,16 @@ router.get('/Map', (req, res) => {
     res.render('links/Map');
 })
 
-router.post('/UpdateClass/:id', async(req, res) => {
+router.post('/UpdateClass/:id', async (req, res) => {
     const { id } = req.params;
     const { aula, alumnos, Tipos, Updatedays, UpdateInicio, UpdateCierre, Updateid, days, Inicio, Cierre, Deleteid } = req.body;
-    const Update = {
-        Clase: {
-            id: parseInt(id),
-            Nombre: aula,
-            AlumnosMax: parseInt(alumnos),
-            CodigoBaileID: parseInt(Tipos),
-            AcademiaId: parseInt(req.session.AcademyId)
-        },
+
+    const Clase = {
+        id: parseInt(id),
+        Nombre: aula,
+        AlumnosMax: parseInt(alumnos),
+        CodigoBaileID: parseInt(Tipos),
+        AcademiaId: parseInt(req.session.AcademyId),
         NewHorarios: {
             days: days,
             Inicio,
@@ -184,9 +183,14 @@ router.post('/UpdateClass/:id', async(req, res) => {
         },
         Delete: Deleteid //id de los horarios que se eliminaran
     }
-    await Classes.Update(Update);
-    console.log(Update);
-    res.redirect("/links/PanelAcademia");
+    let update = await Classes.Update(Clase);
+
+    if (update == "")
+        res.redirect("/links/PanelAcademia");
+    else {
+        req.flash('error', update);
+        res.redirect("/links/UpdateClass/" + id);
+    }
 })
 
 
