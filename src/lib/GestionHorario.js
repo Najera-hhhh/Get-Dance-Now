@@ -11,7 +11,7 @@ Horario.ToFormat = function (clase) {
 
     let newshorarios = new Array();
     if (clase.Inicio == undefined) return [];
-
+    
     //TODO: Parchar clase.inicio para que siempre sea un array;
     if (Array.isArray(clase.Inicio)) {
         let horariosInicio = clase.Inicio;

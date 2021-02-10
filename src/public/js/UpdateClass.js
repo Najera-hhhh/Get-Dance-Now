@@ -70,7 +70,7 @@ function Restaurar(del) {
 
     let day = document.getElementById(del).getElementsByTagName("select")[0].value;
 
-    document.getElementById("day" + "-" + del).setAttribute("name", "UpdateDay");
+    document.getElementById("day" + "-" + del).setAttribute("name", "Updatedays");
     document.getElementById("Inicio" + "-" + del).setAttribute("name", "UpdateInicio");
     document.getElementById("Cierre" + "-" + del).setAttribute("name", "UpdateCierre");
     document.getElementById("id" + "-" + del).setAttribute("name", "Updateid");
@@ -84,7 +84,7 @@ function Restaurar(del) {
     copy.getElementsByTagName("button")[0].setAttribute("onclick", "RemoveClass('" + del + "')");
     copy.getElementsByTagName("i")[0].className = "fa fa-ban";
     copy.getElementsByTagName("select")[0].value = day;
-    
+
     destination.appendChild(copy);
 }
 
