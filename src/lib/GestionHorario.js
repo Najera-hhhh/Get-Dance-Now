@@ -5,13 +5,14 @@ const agent = new https.Agent({
     rejectUnauthorized: false
 });
 
-//TODO: Parchar para que siempre clase solo contenga arrays
+
 Horario.ToFormat = function (clase) {
     
 
     let newshorarios = new Array();
     if (clase.Inicio == undefined) return [];
 
+    //TODO: Parchar clase.inicio para que siempre sea un array;
     if (Array.isArray(clase.Inicio)) {
         let horariosInicio = clase.Inicio;
         let horariosCierre = clase.Cierre;
@@ -27,12 +28,16 @@ Horario.ToFormat = function (clase) {
                 Dia: Dias[row++]
             })
         ));
-    } else
+    } else{
+        let id = clase.Id;
         newshorarios.push({
+            id: id == undefined ? 0 : parseInt(id),
             Apertura: "2019-07-26T" + clase.Inicio,
             Cierre: "2019-07-26T" + clase.Cierre,
             Dia: clase.days
         })
+    }
+        
     return newshorarios;
 }
 
@@ -56,11 +61,11 @@ Horario.Update = async function (Horario) {
             Cierre,
             Dia
         };
-        console.log(obj);
+        // console.log(obj);
 
-        let PutUrl = "https://localhost:5001/api/academia" + id;
+        let PutUrl = global.apiConnection + "/api/academia" + id;
         let response = await fetch(PutUrl, {
-            agent,
+             
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -77,9 +82,9 @@ Horario.GetById = async function (id) {
         rejectUnauthorized: false
     });
 
-    let PutUrl = "https://localhost:5001/api/horario" + id;
+    let PutUrl = global.apiConnection + "/api/horario" + id;
     let response = await fetch(PutUrl, {
-        agent,
+         
         method: "GET",
         headers: {
             'Content-Type': 'application/json'
@@ -98,14 +103,14 @@ Horario.Delete = async function (id) {
     });
     
     try{
-        let deleteUrl = "https://localhost:5001/api/horario/" + id;
+        let deleteUrl = global.apiConnection + "/api/horario/" + id;
         await fetch(deleteUrl,{
-            agent,
+             
             method: "DELETE"
         })
     }
     catch(e){
-        console.log(e);
+        // console.log(e);
     }
     return true;
 }

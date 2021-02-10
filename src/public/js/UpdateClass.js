@@ -68,6 +68,8 @@ document.getElementById("add-horario").addEventListener("click", function () {
 
 function Restaurar(del) {
 
+    let day = document.getElementById(del).getElementsByTagName("select")[0].value;
+
     document.getElementById("day" + "-" + del).setAttribute("name", "UpdateDay");
     document.getElementById("Inicio" + "-" + del).setAttribute("name", "UpdateInicio");
     document.getElementById("Cierre" + "-" + del).setAttribute("name", "UpdateCierre");
@@ -81,12 +83,15 @@ function Restaurar(del) {
     padre.removeChild(row);
     copy.getElementsByTagName("button")[0].setAttribute("onclick", "RemoveClass('" + del + "')");
     copy.getElementsByTagName("i")[0].className = "fa fa-ban";
+    copy.getElementsByTagName("select")[0].value = day;
+    
     destination.appendChild(copy);
 }
 
 
 function RemoveClass(del) {
     let row = document.getElementById(del);
+    let day = document.getElementById(del).getElementsByTagName("select")[0].value;
     let padre = row.parentNode;
 
     if (del.indexOf("--") == -1) {
@@ -97,11 +102,13 @@ function RemoveClass(del) {
         document.getElementById("Cierre" + "-" + del).setAttribute("name", "DeleteCierre");
         document.getElementById("id" + "-" + del).setAttribute("name", "Deleteid");
 
-
+        //replicar la fila
         let copy = row.cloneNode(true);
         let destination = document.getElementById('trash');
         let button = copy.getElementsByTagName("button")[0];
         copy.getElementsByTagName("i")[0].className = "fa fa-reply";
+        console.log(day);
+        copy.getElementsByTagName("select")[0].value = day;
 
         destination.appendChild(copy)
         button.setAttribute("onclick", "Restaurar('" + del + "')")

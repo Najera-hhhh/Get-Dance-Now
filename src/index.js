@@ -23,6 +23,7 @@ app.engine('.hbs', exphbs({
 
 app.set('view engine', '.hbs');
 
+
 //middlewere
 //app.use(cookieParser());
 app.use(session({
@@ -46,6 +47,8 @@ app.use(express.json());
 
 
 //Global variables
+global.apiConnection = "http://GetDanceNow.somee.com";
+
 app.use((req, res, next) => {
     app.locals.success = req.flash('success')
     app.locals.failLogin = req.flash('failLogin')
@@ -65,5 +68,5 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 //start 
 app.listen(app.get('port'), () => {
-    console.log('Server on port', app.get('port'));
+    // console.log('Server on port', app.get('port'));
 })

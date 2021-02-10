@@ -4,23 +4,18 @@ const Horarios = require("./GestionHorario");
 
 Classes.GetById = async function GetId(Id) {
     const fetch = require("node-fetch")
-    const https = require("https");
-    const agent = new https.Agent({
-        rejectUnauthorized: false
-    });
-
     try {
-        let UrlGet = "https://localhost:5001/api/clase/" + Id;
-        console.log(UrlGet);
+        let UrlGet = global.apiConnection + "/api/clase/" + Id;
+        // console.log(UrlGet);
         let response = await fetch(UrlGet, {
-            agent,
+             
             method: "GET"
         })
         let item = await response.json();
 
         return item.data;
     } catch (e) {
-        console.log("Error", "color:red");
+        // console.log("Error", "color:red");
     }
 
     return;
@@ -28,11 +23,7 @@ Classes.GetById = async function GetId(Id) {
 
 Classes.Update = async function (Clase) {
     const fetch = require("node-fetch")
-    const https = require("https");
-    const agent = new https.Agent({
-        rejectUnauthorized: false
-    });
-
+    
     const Newhoarios = Horarios.ToFormat(Clase.NewHorarios);
     const UpdateHorarios = Horarios.ToFormat(Clase.UpdateHorarios);
     Clase.Horarios = Newhoarios.concat(UpdateHorarios);
@@ -40,8 +31,8 @@ Classes.Update = async function (Clase) {
     console.log(Clase);
 
     try {
-        await fetch("https://localhost:5001/api/clase/" + Clase.id, {
-            agent,
+        await fetch(global.apiConnection + "/api/clase/" + Clase.id, {
+             
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -50,7 +41,7 @@ Classes.Update = async function (Clase) {
         })
             .then(response => response.json())
             .then(json => {
-                console.log("class", json)
+                // console.log("class", json)
                 if (json.errors) {
                     const { status, detail } = json.errors[0];
                     if (status == 400)
@@ -67,7 +58,7 @@ Classes.Update = async function (Clase) {
             Horarios.Delete(Clase.Delete);
         }
     } catch (e) {
-        console.log(e);
+        // console.log(e);
         return e;
     }
 

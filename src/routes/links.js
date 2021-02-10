@@ -37,7 +37,7 @@ function GenerateHorario(clase) {
 
 
 
-    //newshorarios.forEach(x => console.log(x));
+    //newshorarios.forEach(x => // console.log(x));
     return newshorarios;
 }
 
@@ -51,9 +51,9 @@ async function RegisterClass(clase) {
 
     clase.horarios = GenerateHorario(clase.horarios);
 
-    //console.log(clase)
-    await fetch("https://localhost:5001/api/clase", {
-        agent,
+    //// console.log(clase)
+    await fetch(global.apiConnection + "/api/clase", {
+         
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ async function RegisterClass(clase) {
         .then(response => response.json())
         .catch(error => console.log("error", error))
         .then(json => {
-            console.log(json);
+            // console.log(json);
         });
 }
 
@@ -93,14 +93,14 @@ router.get('/PanelAcademia', async (req, res) => {
 
     const panel = await PanelAcademi.GetClass(req.session.AcademyId); //
     const horarios = await PanelAcademi.GetHorario(panel);
-    console.log(horarios)
+    // console.log(horarios)
     res.render('links/AcademiaPanel', { horarios: horarios });
 })
 
 
 
 router.get('/AcademySignup', (req, res) => {
-    //console.log(horarios)
+    //// console.log(horarios)
     res.render('links/AcademySignup');
 })
 
@@ -113,7 +113,7 @@ router.post('/AcademySignup', async (req, res) => {
 })
 
 router.get('/type', (req, res) => {
-    //console.log(horarios)
+    //// console.log(horarios)
     res.render('links/type');
 })
 
@@ -136,7 +136,7 @@ router.post('/DeleteAcademy', async (req, res) => {
 
 router.get('/UpdateAcademy', async (req, res) => {
     let academy = await Academy.GetById(req.session.AcademyId);
-    //console.log(academy);
+    //// console.log(academy);
     res.render('links/UpdateAcademy', { academy: academy });
 })
 
@@ -152,7 +152,7 @@ router.get('/UpdateClass/:id', async (req, res) => {
     let Class = new Array();
     Class.push(await Classes.GetById(req.params.id)); //
     const Class_Horarios = await PanelAcademi.GetHorario(Class, false);
-    //console.log(Class_Horarios[0]);
+    //// console.log(Class_Horarios[0]);
     res.render('links/UpdateClass', { class: Class_Horarios[0], id: req.params.id });
 })
 

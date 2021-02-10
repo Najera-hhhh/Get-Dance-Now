@@ -2,12 +2,6 @@ const Academy = {}
 
 Academy.Add = async function(Academy) {
     const fetch = require("node-fetch")
-    const https = require("https");
-    const agent = new https.Agent({
-        rejectUnauthorized: false
-    });
-
-
     let obj = {
         Nombre: Academy.academy,
         Numero: Academy.number,
@@ -21,9 +15,8 @@ Academy.Add = async function(Academy) {
         Rol: 1
     }
 
-    console.log(obj);
-    let response = await fetch("https://localhost:5001/api/academia", {
-        agent,
+    // console.log(obj);
+    let response = await fetch(global.apiConnection + "/api/academia", {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -38,48 +31,39 @@ Academy.Add = async function(Academy) {
 
 Academy.Delete = async function(id) {
     const fetch = require("node-fetch")
-    const https = require("https");
-    const agent = new https.Agent({
-        rejectUnauthorized: false
-    });
-
     try {
 
-        let UrlDelete = "https://localhost:5001/api/academia/" + id;
-        console.log(UrlDelete);
+        let UrlDelete = global.apiConnection + "/api/academia/" + id;
+        // console.log(UrlDelete);
         let response = await fetch(UrlDelete, {
-            agent,
+             
             method: "DELETE"
         })
 
         return response.status < 500;
     } catch (e) {
-        console.log("Error", "color:red");
+        // console.log("Error", "color:red");
         return 0;
     }
     return 0;
 }
 
 Academy.GetById = async function(Id) {
-    const fetch = require("node-fetch")
-    const https = require("https");
-    const agent = new https.Agent({
-        rejectUnauthorized: false
-    });
+    const fetch = require("node-fetch");
 
     try {
-
-        let UrlGet = "https://localhost:5001/api/academia/" + Id;
-        console.log(UrlGet);
+        let UrlGet = global.apiConnection +"/api/academia/" + Id;
+        // console.log(UrlGet);
         let response = await fetch(UrlGet, {
-            agent,
             method: "GET"
         })
         let item = await response.json();
 
+        // console.log(item);
+
         return item.data;
     } catch (e) {
-        console.log("Error", "color:red");
+        // console.log("Error", "color:red");
     }
 
     return;
@@ -104,22 +88,21 @@ Academy.Update = async function(Id, academy) {
 
     try {
 
-        let UrlPut = "https://localhost:5001/api/Academia/" + Id;
-        console.log(UrlPut, JSON.stringify(obj));
+        let UrlPut = global.apiConnection + "/api/Academia/" + Id;
+        // console.log(UrlPut, JSON.stringify(obj));
 
         let response = await fetch(UrlPut, {
-            agent,
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(obj)
         })
-        console.log(response);
+        // console.log(response);
 
         return true;
     } catch (e) {
-        console.log("Error", "color:red");
+        // console.log("Error", "color:red");
         return false;
     }
 
