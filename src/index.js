@@ -57,9 +57,14 @@ app.use((req, res, next) => {
 })
 
 //Routes
-app.use(require('./routes/'));
-app.use(require('./routes/autentication'));
-app.use('/links', require('./routes/links'));
+app.use(require('./routes/IndexController'));
+app.use(require('./routes/AutenticationController'));
+app.use(require('./routes/Controllers/MapController'));
+app.use('/links', require('./routes/LinksController'));
+app.use('/links', require('./routes/Controllers/Academy/AcademyController'));
+app.use('/links', require('./routes/Controllers/Academy/ClassController'));
+app.use('/links', require('./routes/Controllers/Academy/PanelController'));
+
 
 
 

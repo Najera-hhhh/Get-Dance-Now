@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const fetch = require("node-fetch")
+
 
 async function ExistAcademy(account) {
     const fetch = require("node-fetch")
@@ -18,6 +18,8 @@ async function ExistAcademy(account) {
             }
         })
         const response = await result.json();
+        console.log(response);
+
 
         if (response.data.id > 0) {
             url = global.apiConnection + "/api/academia/Accout/" + response.data.id;
@@ -30,11 +32,13 @@ async function ExistAcademy(account) {
 
             academy = await queryAcademy.json();
             academy = academy.data
+            console.log(academy);
         }
-    } catch (e) {
-        // console.log(e);
-    }
 
+    } catch (e) {
+         console.log(e);
+    }
+    console.log(academy);
     return academy;
 }
 
@@ -63,6 +67,10 @@ router.get('/logout', (req, res) => {
 
 })
 
+router.get('/links/type', (req, res) => {
+    //// console.log(horarios)
+    res.render('links/type');
+})
 
 
 

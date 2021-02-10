@@ -1,4 +1,17 @@
 const Academy = {}
+const fetch = require("node-fetch")
+Academy.Get = async () => {
+    let url = global.apiConnection + "/api/academia";
+    let response = await fetch(url, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+
+    let item = await response.json();
+    return item.data;
+}
 
 Academy.Add = async function(Academy) {
     const fetch = require("node-fetch")

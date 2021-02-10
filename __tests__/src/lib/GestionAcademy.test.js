@@ -5,7 +5,7 @@ const links = rewire("../../../src/routes/links")
 const prueba = links.__get__("prueba")*/
 // @ponicode
 
-const Academy = require('../../../src/lib/GestionAcademy');
+const Academy = require('src/lib/Repositories/Academy/AcademyRepository.js');
 
 describe("Academy Gestion", () => {
     test("Add", async() => {
@@ -97,4 +97,7 @@ describe("Academy Gestion", () => {
         //expect(true).toBe(Response)
     })
 
+    test("consultar todas las academias", async () => {
+        console.log(Academy.Get());
+    }) 
 })

@@ -1,5 +1,5 @@
 const Classes = {};
-const Horarios = require("./GestionHorario");
+const Horarios = require("./HorarioRepository");
 
 
 Classes.GetById = async function GetId(Id) {
