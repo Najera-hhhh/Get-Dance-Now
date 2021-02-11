@@ -5,9 +5,10 @@ const path = require('path')
 const flash = require("connect-flash");
 const session = require('express-session')
 
-
 const app = express();
-//require("./lib/passport");
+
+require('./../src/lib/Student/AcademiasRepository');
+
 //setings
 app.set('port', process.env.PORT || 4000)
 app.set('views', path.join(__dirname, 'views'))
@@ -23,8 +24,7 @@ app.engine('.hbs', exphbs({
 
 app.set('view engine', '.hbs');
 
-
-//middlewere
+//Middlewere
 //app.use(cookieParser());
 app.use(session({
 
@@ -44,8 +44,6 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json());
 
-
-
 //Global variables
 global.apiConnection = "http://GetDanceNow.somee.com";
 
@@ -64,9 +62,11 @@ app.use('/links', require('./routes/LinksController'));
 app.use('/links', require('./routes/Controllers/Academy/AcademyController'));
 app.use('/links', require('./routes/Controllers/Academy/ClassController'));
 app.use('/links', require('./routes/Controllers/Academy/PanelController'));
-
-
-
+app.use('/links', require('./../src/routes/links'));
+app.use('/links', require('./../src/routes/Student/AcademyController'));
+app.use('/links', require('./../src/routes/Student/ClassController'));
+app.use('/links', require('./../src/routes/Student/InscripcionController'));
+app.use('/links', require('./../src/routes/Student/StudentController'));
 
 //public 
 app.use(express.static(path.join(__dirname, 'public')))

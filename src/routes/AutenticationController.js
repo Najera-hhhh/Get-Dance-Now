@@ -1,16 +1,21 @@
 const express = require('express');
 const router = express.Router();
 
+const _academiaAccount = 1; 
+const _alumnoAccount = 0;
 
+
+
+//TODO: Crear un accountRepository y distrubuir las tareas
 async function ExistAcademy(account) {
     const fetch = require("node-fetch")
 
-    let academy;
+    let user;
 
     try {
 
+        //cunsultar cuenta
         let url = global.apiConnection + "/api/cuenta/" + account.Correo + "/" + account.Password;
-        // console.log(url);
         const result = await fetch(url, {
             method: 'GET',
             headers: {
@@ -20,26 +25,37 @@ async function ExistAcademy(account) {
         const response = await result.json();
         console.log(response);
 
-
-        if (response.data.id > 0) {
-            url = global.apiConnection + "/api/academia/Accout/" + response.data.id;
-            // console.log(url);
-            var queryAcademy = await fetch(url, {
+        //consultar informacion vinculada a la cuenta
+        if (response.data.id > 0) 
+        {
+            url = response.data.rol == _academiaAccount ? 
+                    global.apiConnection + "/api/academia/Accout/"   + response.data.id :
+                    global.apiConnection + "/api/estudiante/Accout/" + response.data.id ;
+            
+            var queryUser = await fetch(url, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
 
-            academy = await queryAcademy.json();
-            academy = academy.data
-            console.log(academy);
-        }
+            user = await queryUser.json();
+            
+            if(user == null)
+                throw "No existen datos del usuario"
 
+            user = {
+                id: user.data.id,
+                panel : response.data.rol == _academiaAccount? "/links/PanelAcademia" : "/links/PanelEstudiante"
+            }
+
+            console.log(user);
+        }
     } catch (e) {
          console.log(e);
     }
-    console.log(academy);
-    return academy;
+
+
+    return user;
 }
 
 router.get('/signin', (req, res) => {
@@ -49,20 +65,23 @@ router.get('/signin', (req, res) => {
 })
 
 router.post("/signin", async(req, res) => {
-    let redirect = "/links/PanelAcademia";
-    const Academy = await ExistAcademy(req.body);
-    // console.log(Academy);
-    if (Academy) {
-        req.session.AcademyId = Academy.id;
+    let redirect; 
+    const user = await ExistAcademy(req.body);
+
+    
+    if (user) {
+        req.session.userId = user.id;
+        redirect = user.panel;
     } else {
         req.flash('failLogin', 'No se encontro ninguna cuenta con esos datos registrada, favor de verificar los datos');
         redirect = "/signin";
     }
+
     res.redirect(redirect);
 })
 
 router.get('/logout', (req, res) => {
-    req.session.AcademyId = 0;
+    req.session.userId = 0;
     res.redirect("/signin");
 
 })

@@ -1,5 +1,6 @@
 const Academy = {}
 const fetch = require("node-fetch")
+
 Academy.Get = async () => {
     let url = global.apiConnection + "/api/academia";
     let response = await fetch(url, {
@@ -28,7 +29,7 @@ Academy.Add = async function(Academy) {
         Rol: 1
     }
 
-    // console.log(obj);
+    
     let response = await fetch(global.apiConnection + "/api/academia", {
         method: "POST",
         headers: {
@@ -37,12 +38,11 @@ Academy.Add = async function(Academy) {
         body: JSON.stringify(obj)
     })
     let item = await response.json();
-
+    console.log(item);
     return item.data;
 }
 
-
-Academy.Delete = async function(id) {
+Academy.GetById = async function(id) {
     const fetch = require("node-fetch")
     try {
 
@@ -70,7 +70,6 @@ Academy.GetById = async function(Id) {
         let response = await fetch(UrlGet, {
             method: "GET"
         })
-        let item = await response.json();
 
         // console.log(item);
 
@@ -78,8 +77,7 @@ Academy.GetById = async function(Id) {
     } catch (e) {
         // console.log("Error", "color:red");
     }
-
-    return;
+    return 0;
 }
 
 Academy.Update = async function(Id, academy) {
@@ -122,7 +120,5 @@ Academy.Update = async function(Id, academy) {
     return false;
 
 }
-
-
 
 module.exports = Academy;

@@ -4,20 +4,20 @@
     box-sizing: border-box;
 }
 
-body {
+body{
     background: #f08621;
 }
 
 .contenedor {
     margin: 2rem auto;
     border: 1px solid #aaa;
-    height: 200px;
-    width: 90%;
+    height: 100px;
+    width:90%;
     max-width: 400px;
     background: #f1f2f300;
-    overflow: auto;
+    overflow:auto;
     box-sizing: border-box;
-    padding: 0 1rem;
+    padding:0 1rem;
 }
 
 .contenedor::-webkit-scrollbar {
@@ -25,13 +25,12 @@ body {
 }
 
 .contenedor::-webkit-scrollbar:vertical {
-    width: 10px;
+    width:10px;
 }
 
-.contenedor::-webkit-scrollbar-button:increment,
-.contenedor::-webkit-scrollbar-button {
+.contenedor::-webkit-scrollbar-button:increment,.contenedor::-webkit-scrollbar-button {
     display: none;
-}
+} 
 
 .contenedor::-webkit-scrollbar:horizontal {
     height: 10px;
@@ -44,7 +43,7 @@ body {
 }
 
 .contenedor::-webkit-scrollbar-track {
-    border-radius: 10px;
+    border-radius: 10px;  
 }
 
 .dropdown-content {
@@ -62,17 +61,52 @@ body {
     display: block;
 }
 
+  
 .custom-toggler.navbar-toggler {
     border-color: #ffffff
+  } 
+
+
+
+.buttons {
+    margin: 10%;
+    text-align: center;
 }
 
-.card {
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 30px;
-    background-color: #fff;
-    box-shadow: 0 0.5em 1em 0 rgba(0, 0, 0, 0.301);
+.btn-hover {
+    width: 200px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    margin: 20px;
+    height: 55px;
+    text-align:center;
+    border: none;
+    background-size: 300% 100%;
+
+    border-radius: 50px;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
 }
+
+.btn-hover:hover {
+    background-position: 100% 0;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn-hover:focus {
+    outline: none;
+}
+
+.btn-hover.color-8 {
+    background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
+    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
+}
+
 
 .card-box {
     padding: 20px;
@@ -104,51 +138,55 @@ body {
     color: #797979;
     border: 2px solid #797979
 }
-
 .thumb-lg {
     height: 88px;
     width: 88px;
 }
 
+.text-pink {
+    color: #ff679b!important;
+}
 .btn-rounded {
     border-radius: 2em;
 }
-
 .text-muted {
     color: #98a6ad!important;
 }
 
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+
 .search {
-    width: 60%;
-    display: flex;
+  width: 100%;
+  position: relative;
+  display: flex;
 }
 
 .searchTerm {
-    width: 100%;
-    border: 3px solid #333333;
-    border-right: none;
-    padding: 5px;
-    height: 50px;
-    border-radius: 5px 0 0 5px;
-    outline: none;
-    color: #9DBFAF;
+  width: 100%;
+  border: 3px solid #333333;
+  border-right: none;
+  padding: 5px;
+  height: 40px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
 }
 
-.searchTerm:focus {
-    color: #000000;
+.searchTerm:focus{
+  color: #00B4CC;
 }
 
 .searchButton {
-    width: 40px;
-    height: 50px;
-    border: 1px solid #333333;
-    background: #333333;
-    text-align: center;
-    color: #fff;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    font-size: 20px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid #333333;
+  background: #333333;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .alert-delte{

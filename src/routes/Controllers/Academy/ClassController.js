@@ -24,7 +24,7 @@ router.post('/UpdateClass/:id', async (req, res) => {
         Nombre: aula,
         AlumnosMax: parseInt(alumnos),
         CodigoBaileID: parseInt(Tipos),
-        AcademiaId: parseInt(req.session.AcademyId),
+        AcademiaId: parseInt(req.session.userId),
         NewHorarios: {
             days: days,
             Inicio,
@@ -86,7 +86,7 @@ router.post('/add', async (req, res) => {
         "Nombre": req.body.aula,
         "alumnosMax": parseInt(req.body.alumnos),
         "codigoBaileID": parseInt(req.body.Tipos),
-        "academiaId": parseInt(req.session.AcademyId),
+        "academiaId": parseInt(req.session.userId),
         "horarios": req.body
     }
 
