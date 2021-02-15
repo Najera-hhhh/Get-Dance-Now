@@ -7,7 +7,7 @@ const session = require('express-session')
 
 const app = express();
 
-require('./../src/lib/Student/AcademiasRepository');
+require('./../src/lib/Repositories/Student/AcademiasRepository');
 
 //setings
 app.set('port', process.env.PORT || 4000)
@@ -63,10 +63,10 @@ app.use('/links', require('./routes/Controllers/Academy/AcademyController'));
 app.use('/links', require('./routes/Controllers/Academy/ClassController'));
 app.use('/links', require('./routes/Controllers/Academy/PanelController'));
 app.use('/links', require('./../src/routes/links'));
-app.use('/links', require('./../src/routes/Student/AcademyController'));
-app.use('/links', require('./../src/routes/Student/ClassController'));
-app.use('/links', require('./../src/routes/Student/InscripcionController'));
-app.use('/links', require('./../src/routes/Student/StudentController'));
+app.use('/links', require('./../src/routes/Controllers/Student/AcademyController'));
+app.use('/links', require('./../src/routes/Controllers/Student/ClassController'));
+app.use('/links', require('./../src/routes/Controllers/Student/InscripcionController'));
+app.use('/links', require('./../src/routes/Controllers/Student/StudentController'));
 
 //public 
 app.use(express.static(path.join(__dirname, 'public')))

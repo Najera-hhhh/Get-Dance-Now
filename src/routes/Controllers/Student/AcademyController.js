@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Academias = require('./../../lib/Student/AcademiasRepository');
+const Academias = require('./../../lib/Repositories/Student/AcademiasRepository');
 
 router.get('/Academias', async(req, res) => {
     const academias = await Academias.GetAcademias();
