@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Clases = require('./../../lib/Student/ClassRepository');
+const Clases = require('./../../../lib/Repositories/Student/ClassRepository');
 
 function GenerateHorario(clase) {
     let newshorarios = new Array();

@@ -62,7 +62,6 @@ app.use('/links', require('./routes/LinksController'));
 app.use('/links', require('./routes/Controllers/Academy/AcademyController'));
 app.use('/links', require('./routes/Controllers/Academy/ClassController'));
 app.use('/links', require('./routes/Controllers/Academy/PanelController'));
-app.use('/links', require('./../src/routes/links'));
 app.use('/links', require('./../src/routes/Controllers/Student/AcademyController'));
 app.use('/links', require('./../src/routes/Controllers/Student/ClassController'));
 app.use('/links', require('./../src/routes/Controllers/Student/InscripcionController'));

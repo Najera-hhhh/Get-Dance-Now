@@ -1,7 +1,7 @@
 const Academy = {}
 const fetch = require("node-fetch")
 
-Academy.Get = async () => {
+Academy.Get = async() => {
     let url = global.apiConnection + "/api/academia";
     let response = await fetch(url, {
         method: "GET",
@@ -23,13 +23,12 @@ Academy.Add = async function(Academy) {
         Password: Academy.password,
         Descripcion: Academy.descripcion,
         Direction: Academy.direccion,
-        Longitud: 1992321512.42563,
-        Latitud: 198728745872.123857129,
+        Longitud: parseFloat(Academy.lat),
+        Latitud: parseFloat(Academy.lng),
         Logo: Academy.logo,
         Rol: 1
     }
-
-    
+    console.log(obj);
     let response = await fetch(global.apiConnection + "/api/academia", {
         method: "POST",
         headers: {
@@ -39,7 +38,10 @@ Academy.Add = async function(Academy) {
     })
     let item = await response.json();
     console.log(item);
+
     return item.data;
+
+
 }
 
 Academy.GetById = async function(id) {
@@ -49,7 +51,7 @@ Academy.GetById = async function(id) {
         let UrlDelete = global.apiConnection + "/api/academia/" + id;
         // console.log(UrlDelete);
         let response = await fetch(UrlDelete, {
-             
+
             method: "DELETE"
         })
 
@@ -65,7 +67,7 @@ Academy.GetById = async function(Id) {
     const fetch = require("node-fetch");
 
     try {
-        let UrlGet = global.apiConnection +"/api/academia/" + Id;
+        let UrlGet = global.apiConnection + "/api/academia/" + Id;
         // console.log(UrlGet);
         let response = await fetch(UrlGet, {
             method: "GET"
@@ -103,13 +105,13 @@ Academy.Update = async function(Id, academy) {
         // console.log(UrlPut, JSON.stringify(obj));
 
         let response = await fetch(UrlPut, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(obj)
-        })
-        // console.log(response);
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj)
+            })
+            // console.log(response);
 
         return true;
     } catch (e) {

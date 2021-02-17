@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const Student = require('./../../lib/Student/StudentRepository');
+const Student = require('./../../../lib/Repositories//Student/StudentRepository');
 
 router.get('/StudentSignup', (req, res) => {
     res.render('links/StudentSignup');

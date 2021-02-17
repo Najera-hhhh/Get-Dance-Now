@@ -38,28 +38,11 @@
 
     let coords;
     
-    coords = [20.972820556747433, -89.60208892822267];
-    map.addLayer(L.marker(coords));
-    coords = [20.965126493194475, -89.59470748901369];
-    map.addLayer(L.marker(coords));
-    coords = [20.95486712594875, -89.57118988037111];
-    map.addLayer(L.marker(coords));
-    coords = [20.95727172828208, -89.59745407104494];
-    map.addLayer(L.marker(coords));
-    coords = [20.985002014056615, -89.58972930908205];
-    map.addLayer(L.marker(coords));
-    coords = [20.985803390903044, -89.57101821899415];
-    map.addLayer(L.marker(coords));
-    coords = [20.976026299684168, -89.57719802856447];
-    map.addLayer(L.marker(coords));
-    coords = [20.969614745055527, -89.57067489624025];
-    map.addLayer(L.marker(coords));
-    coords = [20.955828971520017, -89.5873260498047];
-    map.addLayer(L.marker(coords));
-    coords = [20.945729284644813, -89.59093093872072];
-    map.addLayer(L.marker(coords));
-    coords = [20.965927976622375, -89.6092987060547];
-    map.addLayer(L.marker(coords));
+     {{#each Academies}}
+        coords = [{{longitud}} ,{{latitud}}];
+        map.addLayer(L.marker(coords));
+    {{/each}}
+    
 
     L.circle(position.latlng, 3500, {
 		color: 'red',
