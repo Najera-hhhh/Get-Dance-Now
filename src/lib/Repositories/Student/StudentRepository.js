@@ -7,7 +7,7 @@ Student.Add = async function(Student) {
         Apellido: Student.apellidos,
         Correo: Student.correo,
         Password: Student.password,
-        Rol: 1
+        Rol: 0
     }
 
     console.log(obj);
@@ -83,13 +83,13 @@ Student.Update = async function(Id, student) {
         console.log(UrlPut, JSON.stringify(obj));
 
         let response = await fetch(UrlPut, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(obj)
-        })
-        // console.log(response);
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(obj)
+            })
+            // console.log(response);
 
         return true;
     } catch (e) {
