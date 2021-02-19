@@ -44,7 +44,7 @@ Academy.Add = async function(Academy) {
 
 }
 
-Academy.GetById = async function(id) {
+Academy.Delete = async function(id) {
     const fetch = require("node-fetch")
     try {
 
