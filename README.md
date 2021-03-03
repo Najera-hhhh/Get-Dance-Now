@@ -5,10 +5,7 @@
 <p>
 <h3>¡La vida es mejor bailando!</h3>
 
-Utiliza nuestra API especialmente diseñada para la ubicar lugares donde puedas practicar danza.<br>
-encontraras eventos cerca de ti y compartir tu opinión acerca de él.
-
-Realiza registro y pago en linea  para no dejar de disfrutar de lo que mas te gusta hacer.
+GetDanceNow es una aplicación desarrollada con la finalidad de ayudar a los usuarios a ubicar academias que imparten clases de bailes para así poder realizar un registro en dichas clases. Nuestro objetivo es ser la mejor aplicación referente a la búsqueda de academias y poder crecer de manera potencial para que podamos incluir otras actividades o hobbies.
 </p>
 <h6>
   
